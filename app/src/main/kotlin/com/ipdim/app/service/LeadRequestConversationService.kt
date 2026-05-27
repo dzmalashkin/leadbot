@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentHashMap
 @Service
 class LeadRequestConversationService(
     private val leadRequestMemoryStorage: LeadRequestMemoryStorage,
+    private val phoneValidator: PhoneValidator,
 ) {
     private val conversations = ConcurrentHashMap<Long, LeadRequestDraft>()
 
@@ -36,6 +37,10 @@ class LeadRequestConversationService(
             }
 
             LeadState.WAITING_PHONE -> {
+                if (!phoneValidator.isValid(text)) {
+                    return ConversationResult.reply("Введите корректный телефон, например +375291234567")
+                }
+
                 conversations[chatId] = draft.copy(phone = text, state = LeadState.WAITING_MESSAGE)
                 ConversationResult.reply("Опишите, что вам нужно")
             }
