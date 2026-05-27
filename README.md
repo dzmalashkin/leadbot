@@ -2,6 +2,8 @@
 
 Telegram bot for collecting customer leads and sending notifications to admin chat.
 
+![LeadBot demo](demo.gif)
+
 ## Features
 - Lead collection flow
 - Phone validation
