@@ -3,6 +3,7 @@ package com.ipdim.app.service
 import com.ipdim.app.dto.LeadRequestDto
 import com.ipdim.app.model.LeadState
 import org.springframework.stereotype.Service
+import java.time.LocalDateTime
 import java.util.concurrent.ConcurrentHashMap
 
 @Service
@@ -50,6 +51,7 @@ class LeadRequestConversationService(
                     name = draft.name.orEmpty(),
                     phone = draft.phone.orEmpty(),
                     message = text,
+                    createdAt = LocalDateTime.now(),
                 )
 
                 conversations.remove(chatId)

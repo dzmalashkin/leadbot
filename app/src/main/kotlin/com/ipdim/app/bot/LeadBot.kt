@@ -1,6 +1,7 @@
 package com.ipdim.app.bot
 
 import com.ipdim.app.dto.LeadRequestDto
+import com.ipdim.app.service.LeadRequestAdminMessageFormatter
 import com.ipdim.app.service.LeadRequestConversationService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
@@ -21,6 +22,7 @@ class LeadBot(
     @param:Value($$"${telegram.bot.token}") private val botToken: String,
     @param:Value($$"${telegram.bot.admin-chat-id:}") private val adminChatId: String,
     private val leadRequestConversationService: LeadRequestConversationService,
+    private val leadRequestAdminMessageFormatter: LeadRequestAdminMessageFormatter,
 ) : SpringLongPollingBot, LongPollingSingleThreadUpdateConsumer {
     private val log = LoggerFactory.getLogger(LeadBot::class.java)
     private val telegramClient: TelegramClient = OkHttpTelegramClient(botToken)
@@ -55,15 +57,8 @@ class LeadBot(
             return
         }
 
-        sendMessage(chatId, request.toAdminMessage())
+        sendMessage(chatId, leadRequestAdminMessageFormatter.format(request))
     }
-
-    private fun LeadRequestDto.toAdminMessage(): String = """
-        Новая заявка:
-        Имя: $name
-        Телефон: $phone
-        Сообщение: $message
-    """.trimIndent()
 
     private fun sendMessage(chatId: Long, text: String) {
         val message = SendMessage.builder()
