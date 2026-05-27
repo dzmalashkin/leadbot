@@ -2,3 +2,5 @@ telegram:
   bot:
     token: ${TELEGRAM_BOT_TOKEN:}
     admin-chat-id: ${TELEGRAM_ADMIN_CHAT_ID:}
+    order-chat-id: ${TELEGRAM_ORDER_CHAT_ID:}
+    demo: ${TELEGRAM_BOT_DEMO:false}

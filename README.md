@@ -6,6 +6,7 @@ Telegram bot for collecting customer leads and sending notifications to admin ch
 
 ## Features
 - Lead collection flow
+- Optional demo mode with "Try demo" and "Order a similar bot" buttons
 - Phone validation
 - Cancel command
 - Admin notifications
@@ -27,6 +28,8 @@ Telegram bot for collecting customer leads and sending notifications to admin ch
 | --- | --- | --- |
 | `TELEGRAM_BOT_TOKEN` | yes | Telegram bot token from BotFather |
 | `TELEGRAM_ADMIN_CHAT_ID` | yes | Telegram chat id where lead notifications are sent |
+| `TELEGRAM_ORDER_CHAT_ID` | no | Telegram chat id where "Order a similar bot" requests are sent. Falls back to `TELEGRAM_ADMIN_CHAT_ID` |
+| `TELEGRAM_BOT_DEMO` | no | Enables demo mode when set to `true` |
 
 The application reads these variables from `app/src/main/resources/application.yml`.
 
@@ -39,6 +42,8 @@ PowerShell:
 ```powershell
 $env:TELEGRAM_BOT_TOKEN="your_bot_token"
 $env:TELEGRAM_ADMIN_CHAT_ID="your_admin_chat_id"
+$env:TELEGRAM_ORDER_CHAT_ID="your_order_chat_id"
+$env:TELEGRAM_BOT_DEMO="false"
 .\gradlew.bat :app:bootRun
 ```
 
@@ -47,6 +52,8 @@ Linux/macOS:
 ```bash
 export TELEGRAM_BOT_TOKEN="your_bot_token"
 export TELEGRAM_ADMIN_CHAT_ID="your_admin_chat_id"
+export TELEGRAM_ORDER_CHAT_ID="your_order_chat_id"
+export TELEGRAM_BOT_DEMO="false"
 ./gradlew :app:bootRun
 ```
 
@@ -64,6 +71,8 @@ Run the bot:
 docker run --rm \
   -e TELEGRAM_BOT_TOKEN="your_bot_token" \
   -e TELEGRAM_ADMIN_CHAT_ID="your_admin_chat_id" \
+  -e TELEGRAM_ORDER_CHAT_ID="your_order_chat_id" \
+  -e TELEGRAM_BOT_DEMO="false" \
   leadbot
 ```
 
@@ -73,6 +82,8 @@ PowerShell:
 docker run --rm `
   -e TELEGRAM_BOT_TOKEN="your_bot_token" `
   -e TELEGRAM_ADMIN_CHAT_ID="your_admin_chat_id" `
+  -e TELEGRAM_ORDER_CHAT_ID="your_order_chat_id" `
+  -e TELEGRAM_BOT_DEMO="false" `
   leadbot
 ```
 
@@ -89,6 +100,8 @@ Example `.env`:
 ```env
 TELEGRAM_BOT_TOKEN=your_real_bot_token
 TELEGRAM_ADMIN_CHAT_ID=your_real_admin_chat_id
+TELEGRAM_ORDER_CHAT_ID=your_real_order_chat_id
+TELEGRAM_BOT_DEMO=false
 ```
 
 Run:
