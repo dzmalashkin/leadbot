@@ -76,6 +76,31 @@ docker run --rm `
 
 The Docker image uses a multi-stage build. Gradle is used only during the build stage, and the final runtime image contains only JRE 21 and the application jar.
 
+## Docker Compose
+
+`.env.example` is a template file.
+
+Do not put real tokens into `.env.example`. Create a separate `.env` file for real deployment values.
+
+Example `.env`:
+
+```env
+TELEGRAM_BOT_TOKEN=your_real_bot_token
+TELEGRAM_ADMIN_CHAT_ID=your_real_admin_chat_id
+```
+
+Run:
+
+```bash
+docker compose up -d --build
+```
+
+Stop:
+
+```bash
+docker compose down
+```
+
 ## Admin Chat ID
 
 `TELEGRAM_ADMIN_CHAT_ID` is the Telegram id of the person or chat that should receive lead notifications.

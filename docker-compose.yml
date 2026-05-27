@@ -1,0 +1,10 @@
+services:
+  leadbot:
+    build:
+      context: .
+    image: leadbot:latest
+    container_name: leadbot
+    environment:
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
+      TELEGRAM_ADMIN_CHAT_ID: ${TELEGRAM_ADMIN_CHAT_ID}
+    restart: unless-stopped
