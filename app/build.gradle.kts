@@ -25,3 +25,7 @@ application {
     // (Note that Kotlin compiles `App.kt` to a class with FQN `com.example.app.AppKt`.)
     mainClass = "com.ipdim.app.LeadBotApplicationKt"
 }
+
+tasks.bootJar {
+    archiveFileName = "leadbot.jar"
+}
