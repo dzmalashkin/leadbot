@@ -34,10 +34,10 @@ class LeadBot(
         val text = message.text ?: return
         val chatId = message.chatId
 
-        val result = if (text == "/start") {
-            leadRequestConversationService.start(chatId)
-        } else {
-            leadRequestConversationService.handleText(chatId, text)
+        val result = when (text) {
+            "/start" -> leadRequestConversationService.start(chatId)
+            "/cancel" -> leadRequestConversationService.cancel(chatId)
+            else -> leadRequestConversationService.handleText(chatId, text)
         }
 
         sendMessage(chatId, result.userReply)

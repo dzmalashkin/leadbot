@@ -16,6 +16,16 @@ class LeadRequestConversationService(
         return ConversationResult.reply("Введите имя")
     }
 
+    fun cancel(chatId: Long): ConversationResult {
+        val removedDraft = conversations.remove(chatId)
+
+        return if (removedDraft == null) {
+            ConversationResult.reply("Активной заявки нет. Нажмите /start, чтобы оставить заявку")
+        } else {
+            ConversationResult.reply("Заявка сброшена. Нажмите /start, чтобы начать заново")
+        }
+    }
+
     fun handleText(chatId: Long, text: String): ConversationResult {
         val draft = conversations[chatId] ?: return ConversationResult.reply("Нажмите /start, чтобы оставить заявку")
 
